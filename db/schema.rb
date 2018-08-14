@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180716182629) do
+ActiveRecord::Schema.define(version: 20180806142338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -168,6 +170,7 @@ ActiveRecord::Schema.define(version: 20180716182629) do
     t.boolean "has_unopened_messages", default: false
     t.datetime "last_opened_at", default: "2017-01-01 05:00:00"
     t.string "role", default: "member"
+    t.boolean "show_global_badge_notification", default: true
     t.string "status", default: "active"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -285,7 +288,6 @@ ActiveRecord::Schema.define(version: 20180716182629) do
     t.string "reported_url"
     t.boolean "reporter_email_sent?", default: false
     t.integer "reporter_id"
-    t.integer "reviewer_id"
     t.string "slug"
     t.string "status", default: "Open"
     t.datetime "updated_at"
@@ -386,6 +388,7 @@ ActiveRecord::Schema.define(version: 20180716182629) do
   end
 
   create_table "notes", id: :serial, force: :cascade do |t|
+    t.integer "author_id"
     t.text "content"
     t.datetime "created_at", null: false
     t.integer "noteable_id"
@@ -664,7 +667,9 @@ ActiveRecord::Schema.define(version: 20180716182629) do
     t.boolean "looking_for_work_publicly", default: false
     t.datetime "membership_started_at"
     t.text "mentee_description"
+    t.datetime "mentee_form_updated_at"
     t.text "mentor_description"
+    t.datetime "mentor_form_updated_at"
     t.integer "monthly_dues", default: 0
     t.string "mostly_work_with"
     t.string "name"
